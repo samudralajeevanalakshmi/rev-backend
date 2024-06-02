@@ -41,15 +41,13 @@ jobs:
         working-directory: ./frontend
         run: npm run build
 
-      - name: Deploy frontend to Netlify
+      - name: Deploy frontend to Azure Blob Storage
         if: github.ref == 'refs/heads/main'
-        uses: nwtgck/actions-netlify@v1.2
+        uses: Azure/cli@v1
         with:
-          publish-dir: ./frontend/build
-          production-deploy: true
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          azcliversion: '2.0.72'
+          inlineScript: |
+            az storage blob upload-batch --account-name <your_storage_account_name> --account-key <your_storage_account_key> --destination <container_name> --source ./frontend/build
 
   build-and-test-backend:
     runs-on: ubuntu-latest
@@ -109,7 +107,11 @@ jobs:
           DATABASE_URL: mysql://root:root@127.0.0.1:3306/revhire
         run: npm test
 
-      - name: Deploy backend to Heroku
+      - name: Deploy backend to Azure App Service
         if: github.ref == 'refs/heads/main'
-        run: |
-          git push https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git main
+        uses: Azure/webapps-deploy@v2
+        with:
+          app-name: '<your_app_name>'
+          slot-name: 'production'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: './backend'
