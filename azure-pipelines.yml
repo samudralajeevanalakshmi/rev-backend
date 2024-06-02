@@ -15,7 +15,7 @@ variables:
   webAppName: 'revhire'
 
   # Environment name
-  environmentName: ''
+  environmentName: 'rev'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
