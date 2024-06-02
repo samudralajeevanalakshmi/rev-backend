@@ -20,7 +20,7 @@ resource "azurerm_mysql_server" "mysql" {
 }
 
 resource "azurerm_mysql_database" "main" {
-  name                = "revhiredb"
+  name                = "revhire"
   resource_group_name = azurerm_resource_group.main.name
   server_name         = azurerm_mysql_server.mysql.name
   charset             = "utf8"
