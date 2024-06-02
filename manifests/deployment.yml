@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: samudralajeevanalakshmirevbackend 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: samudralajeevanalakshmirevbackend
+  template:
+    metadata:
+      labels:
+        app: samudralajeevanalakshmirevbackend 
+    spec:
+      containers:
+        - name: samudralajeevanalakshmirevbackend 
+          image: acrconres.azurecr.io/samudralajeevanalakshmirevbackend
+          ports:
+          - containerPort: 4200
