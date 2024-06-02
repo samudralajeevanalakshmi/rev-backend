@@ -30,15 +30,15 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies
-        working-directory: ./frontend/revhire
+        working-directory: ./Front-end/revhire
         run: npm install
 
       - name: Run tests
-        working-directory: ./frontend/revhire
+        working-directory: ./Front-end/revhire
         run: npm test
 
       - name: Build frontend
-        working-directory: ./frontend/revhire
+        working-directory: ./Front-end/revhire
         run: npm run build
 
       - name: Deploy frontend to Azure Blob Storage
@@ -47,7 +47,7 @@ jobs:
         with:
           azcliversion: '2.0.72'
           inlineScript: |
-            az storage blob upload-batch --account-name <your_storage_account_name> --account-key <your_storage_account_key> --destination <container_name> --source ./frontend/revhire/build
+            az storage blob upload-batch --account-name <your_storage_account_name> --account-key <your_storage_account_key> --destination <container_name> --source ./Front-end/revhire/build
 
   build-and-test-backend:
     runs-on: ubuntu-latest
