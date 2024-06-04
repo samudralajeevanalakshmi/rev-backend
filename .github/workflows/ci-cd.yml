@@ -47,7 +47,7 @@ jobs:
         with:
           azcliversion: '2.0.72'
           inlineScript: |
-            az storage blob upload-batch --account-name <your_storage_account_name> --account-key <your_storage_account_key> --destination <container_name> --source ./Front-end/revhire/build
+            az storage blob upload-batch --account-name revhire --account-key <your_storage_account_key> --destination <container_name> --source ./Front-end/revhire/build
 
   build-and-test-backend:
     runs-on: ubuntu-latest
